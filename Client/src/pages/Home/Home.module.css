@@ -1,0 +1,112 @@
+.homeContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.askBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.askBtn:hover {
+  background-color: #0056b3;
+}
+
+.welcomeText {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.searchBar {
+  margin-bottom: 40px;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- THE QUESTION CARD STYLE --- */
+.questionCard {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.questionCard:hover {
+  background-color: #fcfcfc;
+}
+
+.userSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  text-align: center;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: #f0f2f5;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.userName {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.titleSection {
+  flex-grow: 1;
+  padding: 0 30px;
+}
+
+.titleSection p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #222;
+}
+
+.arrow {
+  font-size: 1.5rem;
+  color: #ccc;
+  font-weight: 300;
+}

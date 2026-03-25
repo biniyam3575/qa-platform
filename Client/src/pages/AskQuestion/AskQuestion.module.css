@@ -1,0 +1,66 @@
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.instructions {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 5px solid #007bff;
+}
+
+.instructions h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.instructions ul {
+  padding-left: 20px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.formCard {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup input, .inputGroup textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.inputGroup textarea {
+  height: 200px;
+  resize: vertical;
+}
+
+.submitBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.submitBtn:hover {
+  background-color: #0056b3;
+}

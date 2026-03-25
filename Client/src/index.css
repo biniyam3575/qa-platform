@@ -1,0 +1,36 @@
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 10px;
+    margin: 20px auto;
+}
+input, button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+/* This targets everything and kills the ghost margins */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #f5f5f5; /* Match your app's background */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Forces the app to be at least screen height */
+}

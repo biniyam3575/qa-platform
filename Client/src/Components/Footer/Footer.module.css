@@ -1,0 +1,55 @@
+.footer {
+  background-color: #1a1a1a;
+  color: #999;
+  padding: 60px 5% 20px;
+  margin-top: 80px;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footerSection h4 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.footerSection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerSection li {
+  margin-bottom: 12px;
+}
+
+.footerSection a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footerSection a:hover {
+  color: #fff;
+}
+
+.bottomBar {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.footer {
+  /* ... your other styles ... */
+  margin-bottom: 0 !important;
+  padding-bottom: 40px; /* Use padding instead of margin for space at the bottom */
+}
+
+.bottomBar {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
