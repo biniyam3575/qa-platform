@@ -1,0 +1,113 @@
+.howContainer {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  color: #333;
+}
+
+.highlight {
+  color: #fe8402;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+}
+
+.stepCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  position: relative;
+}
+
+.iconWrapper {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.stepNumber {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-weight: 800;
+  color: #eee;
+  font-size: 1.5rem;
+}
+
+.ctaSection {
+  margin-top: 80px;
+  text-align: center;
+  background: #fdfdfd;
+  padding: 50px;
+  border-radius: 20px;
+}
+
+.startBtn {
+  margin-top: 25px;
+  padding: 12px 35px;
+  background: #fe8402;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ============================================= */
+/* MOBILE RESPONSIVE STYLES (Small Screens)      */
+/* ============================================= */
+@media (max-width: 768px) {
+  .howContainer {
+    margin: 20px auto;
+  }
+
+  .header h1 {
+    font-size: 1.8rem; /* Smaller title for mobile */
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr; /* Force 1 column on mobile */
+    gap: 20px;
+  }
+
+  .stepCard {
+    padding: 30px 20px; /* Less padding to save space */
+  }
+
+  .iconWrapper {
+    font-size: 2.5rem;
+  }
+
+  .ctaSection {
+    margin-top: 40px;
+    padding: 30px 15px;
+  }
+
+  .ctaSection h2 {
+    font-size: 1.3rem;
+  }
+
+  .startBtn {
+    width: 100%; /* Make button full width on mobile */
+    padding: 15px;
+  }
+}

@@ -1,0 +1,193 @@
+/* Container and Card */
+.settingsContainer {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+}
+
+.settingsCard {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.subtitle {
+  color: #777;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Avatar and Image Upload Styles */
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.previewImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fe8402; /* Your nice orange border */
+}
+
+.bigAvatar {
+  color: #dee2e6;
+  width: 120px;
+  height: 120px;
+}
+
+.cameraBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #007bff;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 3px solid white;
+  transition: transform 0.2s;
+}
+
+.cameraBtn:hover {
+  transform: scale(1.1);
+  background: #0056b3;
+}
+
+.uploadText {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Form Layout */
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.inputGroup input:focus {
+  border-color: #007bff;
+}
+
+.disabledInput {
+  background-color: #f1f3f5;
+  cursor: not-allowed;
+  color: #888;
+}
+
+/* Save Button */
+.saveBtn {
+  width: 100%;
+  padding: 14px;
+  background-color: #fe8402; /* Matching the Evangadi Orange */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.saveBtn:hover {
+  background-color: #e67600;
+}
+
+.saveBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Messages */
+.success {
+  color: #28a745;
+  background: #e9f7ef;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  border: 1px solid #d4edda;
+}
+
+.error {
+  color: #dc3545;
+  background: #fdf2f2;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  border: 1px solid #f8d7da;
+}
+
+.loader {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  color: #007bff;
+}
+.previewImg {
+  width: 100px; /* or 120px to match your avatar size */
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .inputGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .settingsCard {
+    padding: 20px;
+  }
+}

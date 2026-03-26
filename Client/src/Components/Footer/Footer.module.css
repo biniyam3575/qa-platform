@@ -1,20 +1,48 @@
 .footer {
-  background-color: #1a1a1a;
-  color: #999;
-  padding: 60px 5% 20px;
-  margin-top: 80px;
+  background-color: #3b455a; /* Deep professional blue/grey */
+  color: #ffffff;
+  padding: 60px 0 20px 0;
+  margin-top: 50px;
 }
 
 .footerGrid {
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr; /* Gives the brand section more space */
   gap: 40px;
-  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.logoText {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.hub {
+  color: #fe8402; /* Use that orange accent! */
+}
+
+.socialIcons {
+  display: flex;
+  gap: 20px;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.socialIcons a {
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.socialIcons a:hover {
+  color: #fe8402;
 }
 
 .footerSection h4 {
-  color: #fff;
   margin-bottom: 20px;
+  font-size: 1.2rem;
 }
 
 .footerSection ul {
@@ -22,34 +50,37 @@
   padding: 0;
 }
 
-.footerSection li {
-  margin-bottom: 12px;
+.footerSection ul li {
+  margin-bottom: 10px;
 }
 
 .footerSection a {
-  color: #999;
+  color: #adb5bd;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: 0.3s;
 }
 
 .footerSection a:hover {
-  color: #fff;
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 .bottomBar {
-  border-top: 1px solid #333;
-  padding-top: 20px;
   text-align: center;
-  font-size: 0.85rem;
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #adb5bd;
+  font-size: 0.9rem;
 }
 
-.footer {
-  /* ... your other styles ... */
-  margin-bottom: 0 !important;
-  padding-bottom: 40px; /* Use padding instead of margin for space at the bottom */
-}
-
-.bottomBar {
-  margin-bottom: 0;
-  padding-bottom: 20px;
+/* Make it responsive for mobile */
+@media (max-width: 768px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .socialIcons {
+    justify-content: center;
+  }
 }

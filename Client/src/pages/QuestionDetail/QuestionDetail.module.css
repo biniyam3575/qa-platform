@@ -114,3 +114,25 @@
 .postBtn:hover {
   background-color: #0056b3;
 }
+
+.answer_avatar_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.ansUserName {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  color: #555;
+}
+
+.userSide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
