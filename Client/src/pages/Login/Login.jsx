@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axiosBase from '../../api/axiosConfig'; 
+import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 import classes from './Login.module.css';
 
 const Login = () => {
-  // We use 'inputValue' because your backend allows either Username OR Email
   const [inputValue, setInputValue] = useState(''); 
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const fromNode = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,27 +22,20 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // CRITICAL: The key must be 'username' to match your backend destructuring
       const response = await axiosBase.post('/users/login', {
-        username: inputValue, 
+        username: inputValue.trim(), 
         password: password
       });
 
       if (response.data.success) {
-        // 1. Store the JWT Token
         localStorage.setItem('token', response.data.token);
-        
-        // 2. Store the User object (Backend returns: { success, token, user })
-        // This ensures Home.jsx can access 'userName' immediately
         localStorage.setItem('user', JSON.stringify(response.data.user));
-
-        // 3. Move to Home Page
-        navigate('/'); 
+        
+        navigate(fromNode, { replace: true }); 
       }
     } catch (err) {
-      // Handle the 401 Unauthorized or 500 Server Error
-      console.error("Login Error:", err.response?.data);
-      setError(err.response?.data?.message || 'Invalid username/email or password');
+      console.error("Login Context Rejection:", err.response?.data);
+      setError(err.response?.data?.message || 'Invalid username/email or password configurations.');
     } finally {
       setLoading(false);
     }
@@ -46,11 +43,16 @@ const Login = () => {
 
   return (
     <div className={classes.container}>
+      {/* Structural Back Arrow Layer */}
+      <div className={classes.navigationHeader}>
+        <button onClick={() => navigate('/')} className={classes.backBtn} title="Return to Dashboard">
+          <FaArrowLeft className={classes.arrowIcon} /> Back to Dashboard
+        </button>
+      </div>
+
       <div className={classes.card}>
-        <h2 className={classes.title}>Login to your account</h2>
-        <p className={classes.subtitle}>
-          Don't have an account? <Link to="/register" className={classes.orangeText}>Create a new account</Link>
-        </p>
+        <h2 className={classes.title}>Sign In</h2>
+        <p className={classes.subtitle}>Access your academic engineering profile</p>
 
         {error && <div className={classes.errorAlert}>{error}</div>}
 
@@ -67,24 +69,36 @@ const Login = () => {
           </div>
 
           <div className={classes.inputGroup}>
-            <input 
-              type="password" 
-              placeholder="Password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-              className={classes.inputField}
-            />
+            <div className={classes.passwordWrapper}>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                placeholder="Password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+                className={classes.inputFieldPassword}
+              />
+              <button 
+                type="button" 
+                className={classes.eyeToggleButton}
+                onClick={() => setShowPassword(!showPassword)}
+                title={showPassword ? "Hide password string" : "Reveal password string"}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
 
           <button type="submit" disabled={loading} className={classes.loginBtn}>
-            {loading ? 'Processing...' : 'Login'}
+            {loading ? 'Processing Authentication...' : 'Sign In'}
           </button>
         </form>
 
+        {/* Professional Lower Account Creation Container */}
         <div className={classes.footer}>
-          <Link to="/register" className={classes.forgotPassword}>
-            I forgot my password
+          <span className={classes.footerText}>New to our community? </span>
+          <Link to="/register" className={classes.darkLink}>
+            Create an account
           </Link>
         </div>
       </div>

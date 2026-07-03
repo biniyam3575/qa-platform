@@ -2,7 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosBase from '../../api/axiosConfig';
 import classes from './Settings.module.css';
-import { FaUserCircle, FaCamera } from 'react-icons/fa';
+import { FaUserCircle, FaCamera, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
+
+const PasswordField = ({ id, label, placeholder, value, onChange, required }) => {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className={classes.inputGroup}>
+      <label htmlFor={id}>{label}</label>
+      <div className={classes.passwordWrapper}>
+        <input
+          id={id}
+          type={visible ? 'text' : 'password'}
+          name={id}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          required={required}
+          autoComplete="new-password"
+        />
+        <button
+          type="button"
+          className={classes.eyeBtn}
+          onClick={() => setVisible((prev) => !prev)}
+          aria-label={visible ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
+        >
+          {visible ? <FaEyeSlash /> : <FaEye />}
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -10,30 +40,32 @@ const Settings = () => {
     userName: '',
     first_name: '',
     last_name: '',
-    email: '',
-    profile_image: '' // Added to track the image URL
+    profile_image: '',
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
   });
-  
+
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
-  
   // 1. Fetch current user data on component load
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const { data } = await axiosBase.get('/users/profile');
         const user = data.data;
-        setFormData({
+        setFormData((prev) => ({
+          ...prev,
           userName: user.userName || '',
           first_name: user.first_name || '',
           last_name: user.last_name || '',
-          email: user.email || '',
-          profile_image: user.profile_image || '' // Load existing image if any
-        });
+          profile_image: user.profile_image || '',
+        }));
       } catch (err) {
-        console.error("Fetch error:", err);
+        console.error('Fetch error:', err);
       } finally {
         setLoading(false);
       }
@@ -49,11 +81,11 @@ const Settings = () => {
   // 3. Handle Cloudinary Image Upload
   const uploadImage = async (e) => {
     const files = e.target.files;
-    if (!files || files.length === 0) return; // Guard clause
+    if (!files || files.length === 0) return;
 
     const data = new FormData();
     data.append('file', files[0]);
-    data.append('upload_preset', 'profile'); 
+    data.append('upload_preset', 'profile');
 
     setUpdating(true);
     try {
@@ -61,21 +93,18 @@ const Settings = () => {
         method: 'POST',
         body: data,
       });
-      
+
       const file = await res.json();
-      
+
       if (file.secure_url) {
-        // Use functional update to ensure all other fields (name, username) are kept
         setFormData((prevData) => ({
           ...prevData,
-          profile_image: file.secure_url
+          profile_image: file.secure_url,
         }));
-        
         setMessage({ type: 'success', text: 'Image uploaded! Click Save to finish.' });
-        console.log("Image URL:", file.secure_url);
       }
     } catch (err) {
-      console.error("Upload error", err);
+      console.error('Upload error', err);
       setMessage({ type: 'error', text: 'Failed to upload image.' });
     } finally {
       setUpdating(false);
@@ -85,25 +114,32 @@ const Settings = () => {
   // 4. Handle Final Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUpdating(true);
     setMessage({ type: '', text: '' });
 
+    if (isChangingPassword && formData.newPassword !== formData.confirmNewPassword) {
+      setMessage({ type: 'error', text: 'The new passwords do not match.' });
+      return;
+    }
+
+    setUpdating(true);
     try {
-      // Send the complete formData including the new profile_image URL to the backend
-      const response = await axiosBase.put('/users/update', formData);
-      
+      const { currentPassword, newPassword, confirmNewPassword, ...profileFields } = formData;
+      const payload = isChangingPassword
+        ? { ...profileFields, currentPassword, newPassword }
+        : profileFields;
+
+      const response = await axiosBase.put('/users/update', payload);
+
       if (response.data.success) {
         setMessage({ type: 'success', text: 'Profile updated successfully! Redirecting...' });
-        
-        // Update the 'user' object in localStorage so the Header/Home UI updates immediately
+
         const storedUser = JSON.parse(localStorage.getItem('user')) || {};
-        const updatedUser = { ...storedUser, ...formData };
+        const updatedUser = { ...storedUser, ...profileFields };
         localStorage.setItem('user', JSON.stringify(updatedUser));
-        
-        // Wait 2 seconds so the user sees the success message, then go home
+
         setTimeout(() => {
           navigate('/');
-          window.location.reload(); // Refresh to ensure all components catch the new localStorage data
+          window.location.reload();
         }, 2000);
       }
     } catch (err) {
@@ -122,7 +158,6 @@ const Settings = () => {
         <p className={classes.subtitle}>Manage your public profile and account details</p>
 
         <form onSubmit={handleSubmit} className={classes.form}>
-          
           {/* Avatar Upload Section */}
           <div className={classes.avatarSection}>
             <div className={classes.avatarWrapper}>
@@ -131,15 +166,15 @@ const Settings = () => {
               ) : (
                 <FaUserCircle size={100} className={classes.bigAvatar} />
               )}
-              
+
               <label htmlFor="avatar-upload" className={classes.cameraBtn}>
                 <FaCamera />
-                <input 
-                  type="file" 
-                  id="avatar-upload" 
+                <input
+                  type="file"
+                  id="avatar-upload"
                   accept="image/*"
                   onChange={uploadImage}
-                  hidden 
+                  hidden
                 />
               </label>
             </div>
@@ -155,45 +190,79 @@ const Settings = () => {
 
           <div className={classes.inputGrid}>
             <div className={classes.inputGroup}>
-              <label>Username</label>
-              <input 
-                type="text" 
-                name="userName" 
-                value={formData.userName} 
-                onChange={handleChange} 
-                required 
+              <label htmlFor="userName">Username</label>
+              <input
+                id="userName"
+                type="text"
+                name="userName"
+                value={formData.userName}
+                onChange={handleChange}
+                required
               />
             </div>
             <div className={classes.inputGroup}>
-              <label>Email (Read-only)</label>
-              <input 
-                type="email" 
-                value={formData.email} 
-                disabled 
-                className={classes.disabledInput} 
+              <label htmlFor="first_name">First Name</label>
+              <input
+                id="first_name"
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                required
               />
             </div>
             <div className={classes.inputGroup}>
-              <label>First Name</label>
-              <input 
-                type="text" 
-                name="first_name" 
-                value={formData.first_name} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
-            <div className={classes.inputGroup}>
-              <label>Last Name</label>
-              <input 
-                type="text" 
-                name="last_name" 
-                value={formData.last_name} 
-                onChange={handleChange} 
-                required 
+              <label htmlFor="last_name">Last Name</label>
+              <input
+                id="last_name"
+                type="text"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
+
+          {/* Change Password Section */}
+          <div className={classes.passwordToggleRow}>
+            <button
+              type="button"
+              className={classes.passwordTriggerBtn}
+              onClick={() => setIsChangingPassword((prev) => !prev)}
+            >
+              <FaLock size={12} /> {isChangingPassword ? 'Cancel Password Change' : 'Change Password'}
+            </button>
+          </div>
+
+          {isChangingPassword && (
+            <div className={classes.passwordDrawer}>
+              <PasswordField
+                id="currentPassword"
+                label="Current Password"
+                placeholder="Enter current password"
+                value={formData.currentPassword}
+                onChange={handleChange}
+                required={isChangingPassword}
+              />
+              <PasswordField
+                id="newPassword"
+                label="New Password"
+                placeholder="Enter new password"
+                value={formData.newPassword}
+                onChange={handleChange}
+                required={isChangingPassword}
+              />
+              <PasswordField
+                id="confirmNewPassword"
+                label="Confirm New Password"
+                placeholder="Re-enter new password"
+                value={formData.confirmNewPassword}
+                onChange={handleChange}
+                required={isChangingPassword}
+              />
+            </div>
+          )}
 
           <button type="submit" className={classes.saveBtn} disabled={updating}>
             {updating ? 'Processing...' : 'Save Profile & Return Home'}

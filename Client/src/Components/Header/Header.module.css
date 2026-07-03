@@ -1,40 +1,92 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5%;
-  height: 80px;
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  width: 100%;
+  height: 68px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+}
+
+.headerContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo img {
-  height: 120px;
+  height: 100px; /* Reduced to standard professional dimensions */
+  width: auto;
   object-fit: contain;
+  display: block;
 }
 
 .navLinks {
   display: flex;
-  gap: 30px;
+  gap: 32px;
   align-items: center;
 }
 
 .navLinks a {
   text-decoration: none;
-  color: #444;
+  color: #4a5568;
   font-weight: 500;
-  transition: 0.3s;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
-.navLinks a:hover {
-  color: #fe8402;
+.navLinks a:hover,
+.navLinks .activeLink {
+  color: #1a202c;
 }
 
-/* Profile Trigger Styles */
+/* Authentication Group Layout */
+.authGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.loginBtn {
+  color: #4a5568 !important;
+  font-weight: 500;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.loginBtn:hover {
+  color: #1a202c !important;
+}
+
+.signupBtn {
+  background-color: #1a202c; /* Clean, modern dark aesthetic */
+  color: #ffffff !important;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease, transform 0.1s ease !important;
+}
+
+.signupBtn:hover {
+  background-color: #2d3748;
+}
+
+.signupBtn:active {
+  transform: scale(0.98);
+}
+
+/* Profile Dropdown Component Elements */
 .profileWrapper {
   position: relative;
 }
@@ -42,107 +94,186 @@
 .profileTrigger {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
-  padding: 5px 12px;
-  border-radius: 30px;
-  background: #f8f9fa;
-  border: 1px solid #eee;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.profileTrigger:hover {
+  background: #edf2f7;
 }
 
 .avatarImg {
-  width: 35px;
-  height: 35px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #fe8402;
+}
+
+.defaultIcon {
+  color: #a0aec0;
 }
 
 .userNameText {
-  font-weight: 600;
-  color: #333;
+  font-weight: 500;
+  color: #2d3748;
   font-size: 0.9rem;
 }
 
-/* Dropdown Menu */
+.caret {
+  font-size: 0.75rem;
+  color: #718096;
+  transition: transform 0.2s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Premium Structured Dropdown Menu */
 .dropdownMenu {
   position: absolute;
-  top: 50px;
+  top: 46px;
   right: 0;
-  background: white;
-  width: 200px;
+  background: #ffffff;
+  width: 220px;
   border-radius: 8px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-  padding: 8px 0;
-  border: 1px solid #eee;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  padding: 6px 0;
+  border: 1px solid #e2e8f0;
+  animation: fadeIn 0.15s ease-out;
 }
 
 .dropdownHeader {
-  padding: 10px 20px;
-  font-size: 0.8rem;
+  padding: 12px 16px;
+}
+
+.dropdownHeader p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dropdownHeader strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #1a202c;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 4px 0;
 }
 
 .dropdownItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
+  justify-content: flex-start;
+  padding: 10px 16px;
   width: 100%;
   border: none;
   background: none;
-  color: #444;
+  color: #4a5568;
+  font-size: 0.9rem;
   text-decoration: none;
   cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.itemText {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.countBadge {
+  background-color: #edf2f7;
+  color: #4a5568;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.15s ease;
+}
+
+.dropdownItem:hover .countBadge {
+  background-color: #1a202c;
+  color: #ffffff;
+  border-color: #1a202c;
 }
 
 .dropdownItem:hover {
-  background: #fff5eb;
-  color: #fe8402;
+  background: #f7fafc;
+  color: #1a202c;
 }
 
-.rotate {
-  transform: rotate(180deg);
-  transition: 0.3s;
-}
-
-.authBtn {
-  background-color: #007bff;
-  color: white !important;
-  padding: 10px 25px;
-  border-radius: 8px;
+.icon {
+  font-size: 0.95rem;
+  color: #718096;
 }
 
 .menuIcon {
   display: none;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
+  color: #2d3748;
   cursor: pointer;
+  z-index: 1010;
 }
 
-/* Mobile Responsiveness */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Adaptive Layout System */
 @media (max-width: 768px) {
   .menuIcon {
     display: block;
   }
 
   .navLinks {
-    position: absolute;
-    top: 80px;
+    position: fixed;
+    top: 0;
     left: -100%;
     flex-direction: column;
-    background: white;
-    width: 100%;
-    height: calc(100vh - 80px);
-    padding: 40px 0;
-    transition: 0.4s;
-    gap: 40px;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+    background: #ffffff;
+    width: 280px;
+    height: 100vh;
+    padding: 80px 24px;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 24px;
+    align-items: flex-start;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.08);
+    border-right: 1px solid #e2e8f0;
   }
 
   .navLinks.active {
     left: 0;
   }
 
-  .userNameText {
-    display: inline-block; /* Show it even on mobile profile trigger */
+  .authGroup {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .loginBtn, .signupBtn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
   }
 }

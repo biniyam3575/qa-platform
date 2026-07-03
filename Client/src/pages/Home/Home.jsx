@@ -2,96 +2,135 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosBase from '../../api/axiosConfig';
 import classes from './Home.module.css';
-import { FaUserCircle, FaChevronRight } from "react-icons/fa";
+import { FaUserCircle, FaChevronRight, FaSearch } from "react-icons/fa";
 
 const Home = () => {
   const [questions, setQuestions] = useState([]);
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 1. Get User Profile
-        const userRes = await axiosBase.get('/users/profile'); 
-        setUser(userRes.data.data);
+        // 1. Fetch user data safely ONLY if a token exists
+        if (token) {
+          try {
+            const userRes = await axiosBase.get('/users/profile'); 
+            setUser(userRes.data.data);
+          } catch (authErr) {
+            console.warn("User auth context invalid or expired:", authErr);
+          }
+        }
 
-        // 2. Get All Questions (Ensure backend JOINs users to get profile_image)
+        // 2. Fetch All Questions publicly
         const quesRes = await axiosBase.get('/questions');
         setQuestions(quesRes.data.questions || []);
       } catch (err) {
-        console.error("Error fetching home data:", err);
+        console.error("Error fetching discussion board resources:", err);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
 
-  // Search Logic
+  // Search Logic Filter
   const filteredQuestions = questions.filter((q) =>
     q.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     (q.userName && q.userName.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  if (loading) return <div className={classes.loading}>Loading discussions...</div>;
+  if (loading) {
+    return (
+      <div className={classes.loaderWrapper}>
+        <div className={classes.spinner}></div>
+        <p>Loading discussions...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={classes.homeWrapper}>
-      <div className={classes.topSection}>
+      {/* Upper Interactive Area */}
+      <div className={classes.dashboardHeader}>
+        <div className={classes.titleBlock}>
+          <h1 className={classes.mainHeading}>Community Dashboard</h1>
+          <p className={classes.welcomeText}>
+            Welcome, <span className={classes.userName}>{user ? user.userName : 'Guest'}</span>
+          </p>
+        </div>
         <Link to="/ask" className={classes.askBtn}>
           Ask Question
         </Link>
-        <h2 className={classes.welcomeText}>
-          Welcome, <span className={classes.userName}>{user?.userName}</span>
-        </h2>
       </div>
 
+      {/* Styled Interactive Search Block */}
       <div className={classes.searchContainer}>
+        <FaSearch className={classes.searchIcon} />
         <input
           type="text"
-          placeholder="Search for a question..."
+          placeholder="Search for an engineering question or user..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className={classes.searchInput}
         />
       </div>
 
-      <hr className={classes.horizontalLine} />
+      <div className={classes.sectionLabelDivider}>
+        <span>Recent Activity Discussions</span>
+        <div className={classes.line}></div>
+      </div>
 
+      {/* Active Post Cards Queue */}
       <div className={classes.listContainer}>
         {filteredQuestions.length > 0 ? (
-          filteredQuestions.map((q) => (
-            <Link 
-              to={`/question/${q.question_id}`} 
-              key={q.question_id} 
-              className={classes.questionCard}
-            >
-              <div className={classes.userInfo}>
-                <div className={classes.avatar}>
-                   {/* Updated to show Real Profile Image */}
-                   {q.profile_image ? (
-                     <img src={q.profile_image} alt="user" className={classes.user_avatar_img} />
-                   ) : (
-                     <FaUserCircle size={45} color="#555" />
-                   )}
-                   <p className={classes.avatarName}>{q.userName}</p>
-                </div>
-              </div>
-              
-              <div className={classes.questionContent}>
-                <h3 className={classes.qTitle}>{q.title}</h3>
-              </div>
+          filteredQuestions.map((q) => {
+            // Feature Implementation: Detect if this item belongs to the active logged-in user
+            // Checks user_id or username fallback match cleanly depending on your exact DB layout schema
+            const isOwnQuestion = user && (user.user_id === q.user_id || user.userName === q.userName);
 
-              <div className={classes.arrowIcon}>
-                <FaChevronRight color="#ccc" />
-              </div>
-            </Link>
-          ))
+            return (
+              <Link 
+                to={`/question/${q.question_id}`} 
+                key={q.question_id} 
+                className={`${classes.questionCard} ${isOwnQuestion ? classes.ownQuestionCard : ''}`}
+              >
+                <div className={classes.cardLeftSection}>
+                  <div className={classes.avatarWrapper}>
+                     {q.profile_image ? (
+                       <img src={q.profile_image} alt={`${q.userName} profile`} className={classes.userAvatarImg} />
+                     ) : (
+                       <FaUserCircle size={40} className={classes.defaultIconAvatar} />
+                     )}
+                  </div>
+                  <div className={classes.metaDetails}>
+                    <div className={classes.titleInlineGroup}>
+                      <h3 className={classes.qTitle}>{q.title}</h3>
+                      
+                      {/* Brand-New Operational Feature Badge: Displays uniquely for ownership */}
+                      {isOwnQuestion && (
+                        <span className={classes.userOwnerBadge}>You Asked</span>
+                      )}
+                    </div>
+                    <span className={classes.authorStamp}>
+                      Asked by <strong className={classes.authorHighlight}>{isOwnQuestion ? 'You' : q.userName}</strong>
+                    </span>
+                  </div>
+                </div>
+                
+                <div className={classes.arrowIconWrapper}>
+                  <FaChevronRight className={classes.actionChevron} />
+                </div>
+              </Link>
+            );
+          })
         ) : (
-          <div className={classes.noData}>
-            {searchQuery ? "No questions match your search." : "No questions have been asked yet."}
+          <div className={classes.noDataCard}>
+            <h3>No results found</h3>
+            <p>{searchQuery ? "We couldn't find matches for your search. Double-check your spelling or look up another topic." : "The forum database queue is currently empty."}</p>
           </div>
         )}
       </div>

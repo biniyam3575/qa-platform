@@ -1,110 +1,306 @@
 .homeWrapper {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
+  max-width: 950px;
+  margin: 48px auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-.topSection {
+/* Header Context Configurations */
+.dashboardHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  gap: 16px;
 }
 
-.askBtn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 25px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.askBtn:hover {
-  background-color: #0056b3;
+.mainHeading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
 }
 
 .welcomeText {
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 0.95rem;
+  color: #718096;
+  margin: 0;
 }
 
 .userName {
-  color: #fe8402; /* Evangadi orange touch */
+  color: #1a202c;
+  font-weight: 600;
+}
+
+.askBtn {
+  background-color: #1a202c;
+  color: #ffffff;
+  padding: 11px 24px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.askBtn:hover {
+  background-color: #2d3748;
+}
+
+.askBtn:active {
+  transform: scale(0.98);
+}
+
+/* Premium Built Search Form Box Layout */
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  color: #a0aec0;
+  font-size: 1rem;
+  pointer-events: none;
 }
 
 .searchInput {
   width: 100%;
-  padding: 15px;
-  border: 1px solid #ddd;
+  padding: 14px 16px 14px 48px;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #1a202c;
+  background-color: #fafafa;
   outline: none;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .searchInput:focus {
-  border-color: #007bff;
+  background-color: #ffffff;
+  border-color: #4a5568;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
 }
 
-.horizontalLine {
-  border: 0;
-  border-top: 1px solid #eee;
-  margin: 20px 0;
+/* Typography Label Separator Layout */
+.sectionLabelDivider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.sectionLabelDivider span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #edf2f7;
+}
+
+/* Elegant Component Cards */
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .questionCard {
   display: flex;
   align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #f0f0f0;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   text-decoration: none;
   color: inherit;
-  transition: background 0.2s;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .questionCard:hover {
-  background-color: #fafafa;
+  border-color: #cbd5e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transform: translateY(-1px);
 }
 
-.userInfo {
-  flex: 0 0 120px;
-  text-align: center;
+.cardLeftSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
 }
 
-.avatar p {
-  font-size: 0.85rem;
-  margin-top: 5px;
-  color: #777;
+.avatarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.questionContent {
-  flex: 1;
-  padding: 0 20px;
+.userAvatarImg {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.defaultIconAvatar {
+  color: #cbd5e0;
+}
+
+.metaDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
 }
 
 .qTitle {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.questionCard:hover .qTitle {
+  color: #1a202c;
+}
+
+.authorStamp {
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+.authorHighlight {
+  color: #4a5568;
   font-weight: 500;
-  color: #333;
 }
 
-.loading, .noData {
-  text-align: center;
-  padding: 50px;
-  color: #888;
-}
-.user_avatar_img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fe8402;
+.arrowIconWrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
 }
 
-.avatarName {
-  margin-top: 5px;
+.actionChevron {
+  color: #a0aec0;
   font-size: 0.85rem;
-  color: #333;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.questionCard:hover .actionChevron {
+  color: #1a202c;
+  transform: translateX(2px);
+}
+
+/* Empty State Styles Layout */
+.noDataCard {
+  text-align: center;
+  padding: 48px 24px;
+  border: 1px dashed #cbd5e0;
+  border-radius: 8px;
+  background-color: #f7fafc;
+}
+
+.noDataCard h3 {
+  margin: 0 0 8px 0;
+  color: #4a5568;
+  font-size: 1.1rem;
+}
+
+.noDataCard p {
+  margin: 0;
+  color: #718096;
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Loading Spinner Core Systems */
+.loaderWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  gap: 16px;
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #edf2f7;
+  border-top-color: #1a202c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+
+/* Container arrangement layout for title + badge */
+.titleInlineGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Subtle accent style to softly differentiate their own card backgrounds */
+.ownQuestionCard {
+  background-color: #fcfdfd !important;
+  border-left: 3px solid #1a202c !important; /* Elegant subtle dark left indicator accent edge line */
+}
+
+/* Premium Visual Content Badge Rule */
+.userOwnerBadge {
+  background-color: #1a202c;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Layout Responsiveness Design System */
+@media (max-width: 640px) {
+  .dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .askBtn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
 }
