@@ -1,113 +1,221 @@
-.howContainer {
-  max-width: 1100px;
-  margin: 50px auto;
-  padding: 0 20px;
+/* ------------------------------------------------------------------ */
+/* Tokens (mirrors Home / AskQuestion / MyQuestions to stay in sync)   */
+/* ------------------------------------------------------------------ */
+.pageContainer {
+  --color-bg: #ffffff;
+  --color-bg-alt: #f6f7fb;
+  --color-ink: #171a2b;
+  --color-ink-muted: #6b7080;
+  --color-brand: #2e3568;
+  --color-brand-dark: #1f2452;
+  --color-accent: #f2a93b;
+  --color-accent-dark: #d98f22;
+  --color-accent-soft: rgba(242, 169, 59, 0.18);
+  --color-success: #2f9e6e;
+  --color-success-soft: rgba(47, 158, 110, 0.14);
+  --color-border: #e7e8f0;
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --shadow-card: 0 1px 2px rgba(23, 26, 43, 0.04);
+  --shadow-card-hover: 0 10px 24px rgba(23, 26, 43, 0.09);
+
+  font-family: var(--font-body);
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  color: var(--color-ink);
 }
 
-.header {
+/* ------------------------------------------------------------------ */
+/* Page header                                                         */
+/* ------------------------------------------------------------------ */
+.pageHeader {
   text-align: center;
-  margin-bottom: 60px;
+  max-width: 560px;
+  margin: 0 auto 48px;
 }
 
-.header h1 {
-  font-size: 2.8rem;
-  color: #333;
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-dark);
 }
 
-.highlight {
-  color: #fe8402;
+.mainHeading {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.1rem;
+  letter-spacing: -0.01em;
+  color: var(--color-brand-dark);
 }
 
-.stepsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-}
-
-.stepCard {
-  background: #fff;
-  border-radius: 12px;
-  padding: 40px 30px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
+.brandHighlight {
+  color: var(--color-brand);
   position: relative;
 }
 
-.iconWrapper {
-  font-size: 3rem;
-  margin-bottom: 20px;
+.subheading {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--color-ink-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Steps grid                                                           */
+/* ------------------------------------------------------------------ */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.stepCard {
+  position: relative;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 26px 22px 22px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.stepCard:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: transparent;
+  transform: translateY(-2px);
 }
 
 .stepNumber {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-weight: 800;
-  color: #eee;
-  font-size: 1.5rem;
-}
-
-.ctaSection {
-  margin-top: 80px;
-  text-align: center;
-  background: #fdfdfd;
-  padding: 50px;
-  border-radius: 20px;
-}
-
-.startBtn {
-  margin-top: 25px;
-  padding: 12px 35px;
-  background: #fe8402;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  cursor: pointer;
+  top: 20px;
+  right: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   font-weight: 600;
+  color: var(--color-border);
 }
 
-/* ============================================= */
-/* MOBILE RESPONSIVE STYLES (Small Screens)      */
-/* ============================================= */
-@media (max-width: 768px) {
-  .howContainer {
-    margin: 20px auto;
-  }
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+}
 
-  .header h1 {
-    font-size: 1.8rem; /* Smaller title for mobile */
-  }
+.stepTitle {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-brand-dark);
+}
 
-  .header p {
-    font-size: 0.9rem;
-  }
+.stepDescription {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
 
+/* ------------------------------------------------------------------ */
+/* CTA section                                                          */
+/* ------------------------------------------------------------------ */
+.ctaSection {
+  text-align: center;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 44px 32px;
+}
+
+.ctaHeading {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--color-brand-dark);
+}
+
+.ctaSubtext {
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+  color: var(--color-ink-muted);
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: var(--color-brand);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.ctaBtn:hover {
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
+}
+
+.ctaBtn svg {
+  font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive breakpoints                                               */
+/* ------------------------------------------------------------------ */
+@media (max-width: 720px) {
   .stepsGrid {
-    grid-template-columns: 1fr; /* Force 1 column on mobile */
-    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: 36px 16px 64px;
   }
 
-  .stepCard {
-    padding: 30px 20px; /* Less padding to save space */
-  }
-
-  .iconWrapper {
-    font-size: 2.5rem;
+  .mainHeading {
+    font-size: 1.6rem;
   }
 
   .ctaSection {
-    margin-top: 40px;
-    padding: 30px 15px;
+    padding: 32px 20px;
   }
 
-  .ctaSection h2 {
-    font-size: 1.3rem;
+  .ctaHeading {
+    font-size: 1.2rem;
   }
 
-  .startBtn {
-    width: 100%; /* Make button full width on mobile */
-    padding: 15px;
+  .ctaBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepCard,
+  .ctaBtn {
+    transition: none;
   }
 }

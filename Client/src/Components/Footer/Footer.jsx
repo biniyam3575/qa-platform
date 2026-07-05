@@ -1,44 +1,105 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Better than <a> tags for React
-import { FaFacebook, FaInstagram, FaYoutube, FaGithub } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import {
+  FaGithub,
+  FaTwitter,
+  FaLinkedin,
+  FaCode,
+  FaHeart,
+} from 'react-icons/fa';
 import classes from './Footer.module.css';
+
+const CURRENT_YEAR = new Date().getFullYear();
+
+const PRODUCT_LINKS = [
+  { to: '/', label: 'Home' },
+  { to: '/how-it-works', label: 'How it works' },
+  { to: '/ask', label: 'Ask a Question' },
+];
+
+const ACCOUNT_LINKS = [
+  { to: '/my-questions', label: 'My Questions' },
+  { to: '/settings', label: 'Account Settings' },
+  { to: '/login', label: 'Sign In' },
+  { to: '/register', label: 'Join Community' },
+];
+
+const SOCIAL_LINKS = [
+  { href: 'https://github.com', label: 'GitHub', icon: <FaGithub /> },
+  { href: 'https://twitter.com', label: 'Twitter', icon: <FaTwitter /> },
+  { href: 'https://linkedin.com', label: 'LinkedIn', icon: <FaLinkedin /> },
+];
 
 const Footer = () => {
   return (
     <footer className={classes.footer}>
-      <div className={classes.footerGrid}>
-        
-        {/* Brand Section */}
-        <div className={classes.footerSection}>
-          <h2 className={classes.logoText}>DevStack<span className={classes.hub}>Hub</span></h2>
-          <div className={classes.socialIcons}>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer"><FaFacebook /></a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer"><FaInstagram /></a>
-            <a href="https://youtube.com" target="_blank" rel="noreferrer"><FaYoutube /></a>
-            <a href="https://github.com" target="_blank" rel="noreferrer"><FaGithub /></a>
+      <div className={classes.footerContainer}>
+        {/* Brand */}
+        <div className={classes.brandColumn}>
+          <Link to="/" className={classes.brandLogo}>
+            <span className={classes.brandIcon}>
+              <FaCode aria-hidden="true" />
+            </span>
+            <span className={classes.brandName}>DevStackHub</span>
+          </Link>
+          <p className={classes.brandTagline}>
+            A community-driven platform where developers ask questions, share
+            solutions, and grow together.
+          </p>
+          <div className={classes.socialRow}>
+            {SOCIAL_LINKS.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.socialIcon}
+                aria-label={social.label}
+              >
+                {social.icon}
+              </a>
+            ))}
           </div>
         </div>
-        
-        {/* Useful Links */}
-        <div className={classes.footerSection}>
-          <h4>Useful Links</h4>
-          <ul>
-            <li><Link to="/how-it-works">How it works</Link></li>
-            <li><Link to="/terms">Terms of Service</Link></li>
-            <li><Link to="/privacy">Privacy Policy</Link></li>
+
+        {/* Product links */}
+        <div className={classes.linkColumn}>
+          <h3 className={classes.columnTitle}>Product</h3>
+          <ul className={classes.linkList}>
+            {PRODUCT_LINKS.map((link) => (
+              <li key={link.to}>
+                <Link to={link.to} className={classes.footerLink}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Contact Info */}
-        <div className={classes.footerSection}>
-          <h4>Contact Info</h4>
-          <p>support@devstackhub.com</p>
-          <p>+1-202-386-2702</p>
+        {/* Account links */}
+        <div className={classes.linkColumn}>
+          <h3 className={classes.columnTitle}>Account</h3>
+          <ul className={classes.linkList}>
+            {ACCOUNT_LINKS.map((link) => (
+              <li key={link.to}>
+                <Link to={link.to} className={classes.footerLink}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-      
-      <div className={classes.bottomBar}>
-        <p>&copy; 2026 DevStack Hub. Built by Biniyam. All rights reserved.</p>
+
+      <div className={classes.footerDivider} />
+
+      <div className={classes.footerBottom}>
+        <p className={classes.copyright}>
+          © {CURRENT_YEAR} DevStackHub. All rights reserved.
+        </p>
+        <p className={classes.madeWith}>
+          Built with <FaHeart className={classes.heartIcon} aria-hidden="true" /> for developers
+        </p>
       </div>
     </footer>
   );

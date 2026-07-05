@@ -1,93 +1,223 @@
+/* ------------------------------------------------------------------ */
+/* Tokens (mirrors Header / Home so all pages stay in sync)             */
+/* ------------------------------------------------------------------ */
 .footer {
-  background-color: #3b455a;
-  color: #ffffff;
-  padding: 60px 0 20px 0;
-  margin-top: 80px;
-  width: 100%;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f6f7fb;
+  --color-ink: #171a2b;
+  --color-ink-muted: #6b7080;
+  --color-brand: #2e3568;
+  --color-brand-dark: #1f2452;
+  --color-accent: #f2a93b;
+  --color-accent-dark: #d98f22;
+  --color-border: #e7e8f0;
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  font-family: var(--font-body);
+  background: var(--color-brand-dark);
+  color: rgba(255, 255, 255, 0.72);
+  margin-top: 64px;
 }
 
-.footerGrid {
-  /* This matches your header's padding exactly */
-
-  padding: 0 9%; 
-  display: flex;
-  justify-content: flex-start; /* Forces everything to start from the left */
-  align-items: flex-start;
-  gap: 10%; /* Uses percentage-based gaps for better scaling */
+/* ------------------------------------------------------------------ */
+/* Main content grid                                                    */
+/* ------------------------------------------------------------------ */
+.footerContainer {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 24px 40px;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
 }
 
-/* THE BRAND SECTION - This is what needs to be flush left */
-.footerSection:first-child {
-  flex: 1.5; 
+/* ------------------------------------------------------------------ */
+/* Brand column                                                         */
+/* ------------------------------------------------------------------ */
+.brandColumn {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  gap: 14px;
 }
 
-.logoText {
-  color: #ffffff;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 0 0 15px 0; 
-  padding: 0;
-  line-height: 1;
-  text-align: left;
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  width: fit-content;
 }
 
-.hub {
-  color: #fe8402;
-}
-
-.socialIcons {
+.brandIcon {
   display: flex;
-  gap: 25px;
-  margin: 0;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--color-accent);
+  color: var(--color-brand-dark);
+  font-size: 0.95rem;
+  flex-shrink: 0;
 }
 
-.socialIcons a {
-  color: #ffffff;
-  font-size: 1.6rem;
-  transition: all 0.3s ease;
-}
-
-/* REMAINING SECTIONS */
-.footerSection {
-  flex: 1;
-}
-
-.footerSection h4 {
-  margin: 0 0 25px 0;
+.brandName {
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 1.2rem;
   color: #ffffff;
+  letter-spacing: -0.01em;
 }
 
-.footerSection ul {
+.brandTagline {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  max-width: 320px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.socialIcon:hover {
+  background: var(--color-accent);
+  color: var(--color-brand-dark);
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Link columns                                                         */
+/* ------------------------------------------------------------------ */
+.linkColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  margin: 0 0 16px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+}
+
+.linkList {
   list-style: none;
+  margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.footerSection a {
-  color: #adb5bd;
+.footerLink {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.68);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
-.bottomBar {
-  text-align: center;
-  margin-top: 60px;
-  padding: 25px 5% 0 5%; 
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #adb5bd;
+.footerLink:hover {
+  color: #ffffff;
 }
 
-/* MOBILE - Centering everything when the screen is small */
-@media (max-width: 768px) {
-  .footerGrid {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 20px;
+/* ------------------------------------------------------------------ */
+/* Bottom bar                                                           */
+/* ------------------------------------------------------------------ */
+.footerDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.footerBottom {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.madeWith {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.heartIcon {
+  color: var(--color-accent);
+  font-size: 0.78rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive breakpoints                                               */
+/* ------------------------------------------------------------------ */
+@media (max-width: 720px) {
+  .footerContainer {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
   }
-  .footerSection:first-child {
-    align-items: center;
+
+  .brandColumn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    margin-top: 48px;
+  }
+
+  .footerContainer {
+    grid-template-columns: 1fr;
+    padding: 40px 20px 32px;
+    gap: 32px;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialIcon {
+    transition: none;
   }
 }

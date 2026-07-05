@@ -1,210 +1,411 @@
+/* ------------------------------------------------------------------ */
+/* Tokens (mirrors Home / AskQuestion so all pages stay in sync)       */
+/* ------------------------------------------------------------------ */
 .pageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 90vh;
-  background-color: #f5f5f5;
-  padding: 30px 20px;
-  font-family: Arial, sans-serif;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f6f7fb;
+  --color-ink: #171a2b;
+  --color-ink-muted: #6b7080;
+  --color-brand: #2e3568;
+  --color-brand-dark: #1f2452;
+  --color-accent: #f2a93b;
+  --color-accent-dark: #d98f22;
+  --color-accent-soft: rgba(242, 169, 59, 0.18);
+  --color-success: #2f9e6e;
+  --color-success-soft: rgba(47, 158, 110, 0.14);
+  --color-border: #e7e8f0;
+  --color-danger: #d1495b;
+  --color-danger-soft: rgba(209, 73, 91, 0.1);
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --shadow-card: 0 1px 2px rgba(23, 26, 43, 0.04);
+  --shadow-card-hover: 0 10px 24px rgba(23, 26, 43, 0.09);
+
+  font-family: var(--font-body);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  color: var(--color-ink);
 }
 
-.topNavRow {
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.backDashboardBtn {
+/* ------------------------------------------------------------------ */
+/* Back button                                                         */
+/* ------------------------------------------------------------------ */
+.backBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: transparent;
   border: none;
-  color: #333;
+  background: none;
+  color: var(--color-ink-muted);
+  font-family: inherit;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  padding: 5px 0;
+  padding: 8px 4px;
+  margin-bottom: 24px;
+  transition: color 0.15s ease;
 }
 
-.backDashboardBtn:hover {
-  color: #111;
+.backBtn:hover {
+  color: var(--color-brand);
 }
 
-.contentCard {
-  background: #ffffff;
-  width: 100%;
-  max-width: 800px;
-  padding: 35px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+/* ------------------------------------------------------------------ */
+/* Page header                                                         */
+/* ------------------------------------------------------------------ */
+.pageHeader {
+  margin-bottom: 28px;
 }
 
-.cardHeader {
-  margin-bottom: 25px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-dark);
 }
 
-.cardHeader h2 {
-  margin: 0 0 6px 0;
-  color: #333;
+.mainHeading {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  color: var(--color-brand-dark);
 }
 
-.cardHeader p {
+.subheading {
   margin: 0;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.98rem;
+  color: var(--color-ink-muted);
 }
 
-.questionsList {
+/* ------------------------------------------------------------------ */
+/* Error banner                                                        */
+/* ------------------------------------------------------------------ */
+.errorBanner {
+  background: var(--color-danger-soft);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+  font-size: 0.88rem;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Section divider                                                     */
+/* ------------------------------------------------------------------ */
+.sectionLabelDivider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sectionLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+.countPill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-brand-dark);
+  background: var(--color-accent-soft);
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ------------------------------------------------------------------ */
+/* Question list + cards                                               */
+/* ------------------------------------------------------------------ */
+.listContainer {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
-.questionItem {
+.questionCard {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
-  border: 1px solid #eef0f2;
-  border-radius: 6px;
-  padding: 20px;
-  background: #fff;
+  gap: 16px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px 20px;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 
-.questionItem:hover {
+.questionCard:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-color: #ccc;
 }
 
-.questionMainContent {
+.solvedQuestionCard {
+  border-left: 3px solid var(--color-success);
+}
+
+.cardMainContent {
+  min-width: 0;
   flex: 1;
-  padding-right: 20px;
 }
 
-.questionTitle {
-  margin: 0 0 8px 0;
-  font-size: 1.15rem;
-  color: #222;
+.titleInlineGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
 }
 
-.questionDescription {
-  margin: 0 0 15px 0;
-  font-size: 0.92rem;
-  color: #555;
-  line-height: 1.45;
+.qTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.qDescription {
+  margin: 0 0 12px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+
+.solvedBadge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-success);
+  background: var(--color-success-soft);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.openBadge {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-ink-muted);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  padding: 3px 8px;
+  border-radius: 999px;
 }
 
 .metadataRow {
   display: flex;
-  gap: 20px;
-  font-size: 0.82rem;
-  color: #888;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .metaDetail {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
 }
 
-.questionActions {
-  display: flex;
-  align-items: center;
+.metaDetail svg {
+  font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Card actions                                                        */
+/* ------------------------------------------------------------------ */
+.cardActions {
+  flex-shrink: 0;
 }
 
 .deleteActionBtn {
-  background: transparent;
-  border: none;
-  color: #dc3545;
-  padding: 10px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s ease;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+  color: var(--color-danger);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
-.deleteActionBtn:hover {
-  background-color: #fbebeb;
+.deleteActionBtn:hover:not(:disabled) {
+  background: var(--color-danger-soft);
+  border-color: var(--color-danger);
+  transform: translateY(-1px);
 }
 
+.deleteActionBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------ */
+/* Empty state                                                         */
+/* ------------------------------------------------------------------ */
 .emptyState {
   text-align: center;
-  padding: 45px 20px;
+  padding: 56px 24px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  color: var(--color-ink-muted);
 }
 
 .emptyIcon {
-  color: #bbb;
-  margin-bottom: 15px;
+  color: var(--color-border);
+  margin-bottom: 12px;
 }
 
 .emptyState h3 {
-  margin: 0 0 8px 0;
-  color: #333;
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-size: 1.1rem;
 }
 
 .emptyState p {
-  margin: 0 0 20px 0;
-  color: #777;
-  font-size: 0.9rem;
+  margin: 0 auto 20px;
+  max-width: 360px;
+  font-size: 0.92rem;
 }
 
 .askBtn {
-  background: #111111; 
-  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border: none;
-  padding: 12px 24px;
+  background: var(--color-brand);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 600;
   font-size: 0.9rem;
-  font-weight: bold;
-  border-radius: 4px;
+  padding: 11px 20px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .askBtn:hover {
-  background: #333333;
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
 }
 
-.errorBanner {
-  color: #721c24;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  font-size: 0.9rem;
+/* ------------------------------------------------------------------ */
+/* Skeleton loading state                                               */
+/* ------------------------------------------------------------------ */
+.skeletonCard {
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
 }
 
-.loader {
-  text-align: center;
-  padding: 80px;
-  font-size: 1.2rem;
-  color: #333;
+.skeletonLines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-@media (max-width: 600px) {
-  .questionItem {
+.skeletonLine {
+  height: 10px;
+  border-radius: 6px;
+}
+
+.skeletonLineWide {
+  width: 40%;
+}
+
+.skeletonLineFull {
+  width: 90%;
+}
+
+.skeletonLineNarrow {
+  width: 25%;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-alt) 25%,
+    #eceef5 37%,
+    var(--color-bg-alt) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive breakpoints                                              */
+/* ------------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .pageContainer {
+    padding: 24px 16px 64px;
+  }
+
+  .mainHeading {
+    font-size: 1.5rem;
+  }
+
+  .questionCard {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
   }
-  .questionActions {
-    margin-top: 15px;
-    width: 100%;
+
+  .cardActions {
+    display: flex;
     justify-content: flex-end;
-    border-top: 1px solid #f5f5f5;
-    padding-top: 10px;
   }
-  .contentCard {
-    padding: 20px 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .questionCard,
+  .askBtn,
+  .deleteActionBtn,
+  .backBtn,
+  .shimmer {
+    transition: none;
+    animation: none;
   }
 }

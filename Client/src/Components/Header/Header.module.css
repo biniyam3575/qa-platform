@@ -1,92 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
 .header {
-  width: 100%;
-  height: 68px;
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  --color-bg: #ffffff;
+  --color-bg-alt: #f6f7fb;
+  --color-ink: #171a2b;
+  --color-ink-muted: #6b7080;
+  --color-brand: #2e3568;
+  --color-brand-dark: #1f2452;
+  --color-accent: #f2a93b;
+  --color-accent-dark: #d98f22;
+  --color-border: #e7e8f0;
+  --color-danger: #d1495b;
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --header-height: 72px;
+  --shadow-elevated: 0 8px 24px rgba(23, 26, 43, 0.08);
+
+  font-family: var(--font-body);
+}
+
+/* ------------------------------------------------------------------ */
+/* Header shell                                                        */
+/* ------------------------------------------------------------------ */
+.header {
   position: sticky;
   top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  display: flex;
-  align-items: center;
+  z-index: 100;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.headerScrolled {
+  box-shadow: var(--shadow-elevated);
+  border-bottom-color: transparent;
 }
 
 .headerContainer {
-  width: 100%;
   max-width: 1200px;
+  height: var(--header-height);
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 32px;
 }
 
-.logo img {
-  height: 100px; /* Reduced to standard professional dimensions */
+/* ------------------------------------------------------------------ */
+/* Logo                                                                 */
+/* ------------------------------------------------------------------ */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.logoImg {
+  height: 100px;
   width: auto;
-  object-fit: contain;
   display: block;
 }
 
-.navLinks {
-  display: flex;
-  gap: 32px;
-  align-items: center;
+.logoText {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-brand-dark);
+  letter-spacing: -0.01em;
 }
 
-.navLinks a {
-  text-decoration: none;
-  color: #4a5568;
-  font-weight: 500;
+/* ------------------------------------------------------------------ */
+/* Desktop nav                                                         */
+/* ------------------------------------------------------------------ */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navLink {
+  position: relative;
+  padding: 8px 6px;
   font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.navLinks a:hover,
-.navLinks .activeLink {
-  color: #1a202c;
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
 }
 
-/* Authentication Group Layout */
-.authGroup {
+.navLink:hover {
+  color: var(--color-ink);
+}
+
+.navLink:hover::after {
+  width: 60%;
+}
+
+.navLinkActive {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.navLinkActive::after {
+  width: 60%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Actions cluster (auth / profile / mobile toggle)                    */
+/* ------------------------------------------------------------------ */
+.actions {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
+}
+
+.authGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .loginBtn {
-  color: #4a5568 !important;
-  font-weight: 500;
-  padding: 8px 16px;
-  font-size: 0.95rem;
-  transition: color 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
 }
 
 .loginBtn:hover {
-  color: #1a202c !important;
+  background: var(--color-bg-alt);
 }
 
 .signupBtn {
-  background-color: #1a202c; /* Clean, modern dark aesthetic */
-  color: #ffffff !important;
-  padding: 9px 20px;
-  border-radius: 6px;
-  font-weight: 500;
   font-size: 0.9rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s ease, transform 0.1s ease !important;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-brand);
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .signupBtn:hover {
-  background-color: #2d3748;
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
 }
 
-.signupBtn:active {
-  transform: scale(0.98);
-}
-
-/* Profile Dropdown Component Elements */
+/* ------------------------------------------------------------------ */
+/* Profile trigger + dropdown                                          */
+/* ------------------------------------------------------------------ */
 .profileWrapper {
   position: relative;
 }
@@ -94,186 +183,337 @@
 .profileTrigger {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  background: none;
+  border: none;
   cursor: pointer;
-  padding: 6px 14px;
-  border-radius: 20px;
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
-  user-select: none;
+  padding: 6px 10px 6px 6px;
+  border-radius: 999px;
   transition: background 0.2s ease;
 }
 
 .profileTrigger:hover {
-  background: #edf2f7;
+  background: var(--color-bg-alt);
 }
 
 .avatarImg {
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid var(--color-accent);
 }
 
-.defaultIcon {
-  color: #a0aec0;
+.avatarFallback {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-brand);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 2px solid var(--color-accent);
 }
 
 .userNameText {
-  font-weight: 500;
-  color: #2d3748;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .caret {
-  font-size: 0.75rem;
-  color: #718096;
+  font-size: 0.7rem;
+  color: var(--color-ink-muted);
   transition: transform 0.2s ease;
 }
 
-.rotate {
+.caretOpen {
   transform: rotate(180deg);
 }
 
-/* Premium Structured Dropdown Menu */
 .dropdownMenu {
   position: absolute;
-  top: 46px;
+  top: calc(100% + 10px);
   right: 0;
-  background: #ffffff;
-  width: 220px;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  padding: 6px 0;
-  border: 1px solid #e2e8f0;
-  animation: fadeIn 0.15s ease-out;
+  min-width: 240px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-elevated);
+  padding: 8px;
+  animation: dropdownIn 0.16s ease;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdownHeader {
-  padding: 12px 16px;
+  padding: 10px 12px 8px;
 }
 
-.dropdownHeader p {
+.dropdownEyebrow {
   margin: 0;
-  font-size: 0.75rem;
-  color: #718096;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
 }
 
-.dropdownHeader strong {
-  display: block;
-  font-size: 0.9rem;
-  color: #1a202c;
-  margin-top: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.dropdownName {
+  font-size: 0.95rem;
+  color: var(--color-ink);
 }
 
 .divider {
   height: 1px;
-  background-color: #e2e8f0;
-  margin: 4px 0;
+  background: var(--color-border);
+  margin: 6px 4px;
 }
 
 .dropdownItem {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 10px 16px;
+  gap: 10px;
   width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
   border: none;
   background: none;
-  color: #4a5568;
+  font-family: inherit;
   font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink);
   text-decoration: none;
   cursor: pointer;
-  box-sizing: border-box;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.itemText {
-  flex-grow: 1;
   text-align: left;
-}
-
-.countBadge {
-  background-color: #edf2f7;
-  color: #4a5568;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.15s ease;
-}
-
-.dropdownItem:hover .countBadge {
-  background-color: #1a202c;
-  color: #ffffff;
-  border-color: #1a202c;
+  transition: background 0.15s ease;
 }
 
 .dropdownItem:hover {
-  background: #f7fafc;
-  color: #1a202c;
+  background: var(--color-bg-alt);
+}
+
+.dropdownItemButton {
+  color: var(--color-danger);
 }
 
 .icon {
-  font-size: 0.95rem;
-  color: #718096;
+  font-size: 1rem;
+  color: var(--color-ink-muted);
+  flex-shrink: 0;
 }
 
+.dropdownItemButton .icon {
+  color: var(--color-danger);
+}
+
+.itemText {
+  flex: 1;
+}
+
+.countBadge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-brand-dark);
+  background: rgba(242, 169, 59, 0.22);
+  padding: 2px 7px;
+  border-radius: 999px;
+  line-height: 1.4;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile menu toggle                                                   */
+/* ------------------------------------------------------------------ */
 .menuIcon {
   display: none;
-  font-size: 1.35rem;
-  color: #2d3748;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  color: var(--color-ink);
   cursor: pointer;
-  z-index: 1010;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+.menuIcon:hover {
+  background: var(--color-bg-alt);
 }
 
-/* Mobile Adaptive Layout System */
-@media (max-width: 768px) {
-  .menuIcon {
-    display: block;
+/* ------------------------------------------------------------------ */
+/* Mobile panel + backdrop                                             */
+/* ------------------------------------------------------------------ */
+.mobilePanel {
+  display: none;
+}
+
+.backdrop {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  background: rgba(23, 26, 43, 0.35);
+  z-index: 90;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileDivider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 12px 0;
+}
+
+.mobileAuthGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileAuthGroup .loginBtn,
+.mobileAuthGroup .signupBtn {
+  text-align: center;
+  padding: 12px 16px;
+}
+
+.mobileAccount {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileAccountHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 12px 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive breakpoints                                              */
+/* ------------------------------------------------------------------ */
+@media (max-width: 960px) {
+  .headerContainer {
+    padding: 0 16px;
   }
 
   .navLinks {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    flex-direction: column;
-    background: #ffffff;
-    width: 280px;
-    height: 100vh;
-    padding: 80px 24px;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    gap: 24px;
-    align-items: flex-start;
-    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.08);
-    border-right: 1px solid #e2e8f0;
-  }
-
-  .navLinks.active {
-    left: 0;
+    display: none;
   }
 
   .authGroup {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px;
-    margin-top: 16px;
+    display: none;
   }
 
-  .loginBtn, .signupBtn {
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
+  .userNameText {
+    display: none;
+  }
+
+  .profileTrigger {
+    padding: 6px;
+  }
+
+  .caret {
+    display: none;
+  }
+
+  .menuIcon {
+    display: flex;
+  }
+
+  .mobilePanel {
+    display: block;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    z-index: 95;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-elevated);
+    padding: 8px 16px 20px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.28s ease, opacity 0.2s ease;
+  }
+
+  .mobilePanelOpen {
+    max-height: calc(100vh - var(--header-height));
+    opacity: 1;
+    overflow-y: auto;
+  }
+
+  .mobileNavLinks .navLink {
+    padding: 14px 4px;
+    font-size: 1rem;
+  }
+
+  .mobileNavLinks .navLink::after {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .logoText {
+    font-size: 1.1rem;
+  }
+
+  .logoImg {
+    height: 28px;
+  }
+
+  .dropdownMenu {
+    min-width: 220px;
+    right: -8px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Accessibility                                                       */
+/* ------------------------------------------------------------------ */
+.navLink:focus-visible,
+.loginBtn:focus-visible,
+.signupBtn:focus-visible,
+.profileTrigger:focus-visible,
+.dropdownItem:focus-visible,
+.menuIcon:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .navLink::after,
+  .caret,
+  .dropdownMenu,
+  .mobilePanel,
+  .signupBtn {
+    transition: none;
+    animation: none;
   }
 }

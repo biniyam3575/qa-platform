@@ -1,118 +1,231 @@
+/* ------------------------------------------------------------------ */
+/* Tokens (mirrors Header.module.css so both stay in sync)             */
+/* ------------------------------------------------------------------ */
 .homeWrapper {
-  max-width: 950px;
-  margin: 48px auto;
-  padding: 0 24px;
-  box-sizing: border-box;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f6f7fb;
+  --color-ink: #171a2b;
+  --color-ink-muted: #6b7080;
+  --color-brand: #2e3568;
+  --color-brand-dark: #1f2452;
+  --color-accent: #f2a93b;
+  --color-accent-dark: #d98f22;
+  --color-accent-soft: rgba(242, 169, 59, 0.18);
+  --color-success: #2f9e6e;
+  --color-success-soft: rgba(47, 158, 110, 0.14);
+  --color-border: #e7e8f0;
+  --color-danger: #d1495b;
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --shadow-card: 0 1px 2px rgba(23, 26, 43, 0.04);
+  --shadow-card-hover: 0 10px 24px rgba(23, 26, 43, 0.09);
+
+  font-family: var(--font-body);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  color: var(--color-ink);
 }
 
-/* Header Context Configurations */
+/* ------------------------------------------------------------------ */
+/* Dashboard header                                                     */
+/* ------------------------------------------------------------------ */
 .dashboardHeader {
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 32px;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-dark);
 }
 
 .mainHeading {
-  font-size: 1.75rem;
+  margin: 0 0 8px;
+  font-family: var(--font-display);
   font-weight: 700;
-  color: #1a202c;
-  margin: 0 0 6px 0;
-  letter-spacing: -0.02em;
-}
-
-.welcomeText {
-  font-size: 0.95rem;
-  color: #718096;
-  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  color: var(--color-brand-dark);
 }
 
 .userName {
-  color: #1a202c;
-  font-weight: 600;
+  color: var(--color-brand);
+}
+
+.subheading {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--color-ink-muted);
 }
 
 .askBtn {
-  background-color: #1a202c;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background: var(--color-brand);
   color: #ffffff;
-  padding: 11px 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
   text-decoration: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.15s ease, transform 0.1s ease;
-  white-space: nowrap;
+  padding: 12px 20px;
+  border-radius: 10px;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .askBtn:hover {
-  background-color: #2d3748;
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
 }
 
-.askBtn:active {
-  transform: scale(0.98);
+.askBtn svg {
+  font-size: 0.8rem;
 }
 
-/* Premium Built Search Form Box Layout */
+/* ------------------------------------------------------------------ */
+/* Search                                                               */
+/* ------------------------------------------------------------------ */
 .searchContainer {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.searchContainer:focus-within {
+  border-color: var(--color-brand);
+  background: var(--color-bg);
 }
 
 .searchIcon {
-  position: absolute;
-  left: 16px;
-  color: #a0aec0;
-  font-size: 1rem;
-  pointer-events: none;
+  color: var(--color-ink-muted);
+  font-size: 0.95rem;
+  flex-shrink: 0;
 }
 
 .searchInput {
-  width: 100%;
-  padding: 14px 16px 14px 48px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  color: #1a202c;
-  background-color: #fafafa;
+  flex: 1;
+  border: none;
+  background: none;
   outline: none;
-  box-sizing: border-box;
-  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  padding: 14px 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-ink);
 }
 
-.searchInput:focus {
-  background-color: #ffffff;
-  border-color: #4a5568;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+.searchInput::placeholder {
+  color: var(--color-ink-muted);
 }
 
-/* Typography Label Separator Layout */
+.clearSearchBtn {
+  border: none;
+  background: none;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.clearSearchBtn:hover {
+  background: var(--color-border);
+  color: var(--color-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Status filter pills                                                  */
+/* ------------------------------------------------------------------ */
+.filterRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.filterPill {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-ink-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.filterPill:hover {
+  border-color: var(--color-brand);
+  color: var(--color-ink);
+}
+
+.filterPillActive {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #ffffff;
+}
+
+.filterPillActive:hover {
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------------------ */
+/* Section divider                                                      */
+/* ------------------------------------------------------------------ */
 .sectionLabelDivider {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
-.sectionLabelDivider span {
-  font-size: 0.8rem;
+.sectionLabel {
+  font-size: 0.82rem;
   font-weight: 600;
-  color: #a0aec0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+.countPill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-brand-dark);
+  background: var(--color-accent-soft);
+  padding: 3px 9px;
+  border-radius: 999px;
   white-space: nowrap;
 }
 
 .line {
-  flex-grow: 1;
+  flex: 1;
   height: 1px;
-  background-color: #edf2f7;
+  background: var(--color-border);
 }
 
-/* Elegant Component Cards */
+/* ------------------------------------------------------------------ */
+/* Question list + cards                                                */
+/* ------------------------------------------------------------------ */
 .listContainer {
   display: flex;
   flex-direction: column;
@@ -123,184 +236,342 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  gap: 16px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px 18px;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 
 .questionCard:hover {
-  border-color: #cbd5e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+.ownQuestionCard {
+  border-left: 3px solid var(--color-accent);
+}
+
+.solvedQuestionCard {
+  border-left: 3px solid var(--color-success);
+}
+
+.ownQuestionCard.solvedQuestionCard {
+  border-left: 3px solid var(--color-success);
 }
 
 .cardLeftSection {
   display: flex;
   align-items: center;
-  gap: 16px;
-  overflow: hidden;
+  gap: 14px;
+  min-width: 0;
 }
 
 .avatarWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
 }
 
 .userAvatarImg {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #e2e8f0;
 }
 
 .defaultIconAvatar {
-  color: #cbd5e0;
+  color: var(--color-border);
 }
 
 .metaDetails {
+  min-width: 0;
+}
+
+.titleInlineGroup {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  overflow: hidden;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .qTitle {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #2d3748;
   margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 380px;
 }
 
-.questionCard:hover .qTitle {
-  color: #1a202c;
+.solvedBadge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-success);
+  background: var(--color-success-soft);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.openBadge {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-ink-muted);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.userOwnerBadge {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-brand-dark);
+  background: var(--color-accent-soft);
+  padding: 3px 8px;
+  border-radius: 999px;
 }
 
 .authorStamp {
-  font-size: 0.8rem;
-  color: #718096;
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
 }
 
 .authorHighlight {
-  color: #4a5568;
-  font-weight: 500;
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.cardRightSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.statGroup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.statItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+}
+
+.statItem svg {
+  font-size: 0.85rem;
 }
 
 .arrowIconWrapper {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding-left: 12px;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.actionChevron {
-  color: #a0aec0;
-  font-size: 0.85rem;
-  transition: color 0.15s ease, transform 0.15s ease;
-}
-
-.questionCard:hover .actionChevron {
-  color: #1a202c;
+.questionCard:hover .arrowIconWrapper {
+  background: var(--color-accent-soft);
   transform: translateX(2px);
 }
 
-/* Empty State Styles Layout */
+.actionChevron {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Empty state                                                          */
+/* ------------------------------------------------------------------ */
 .noDataCard {
   text-align: center;
-  padding: 48px 24px;
-  border: 1px dashed #cbd5e0;
-  border-radius: 8px;
-  background-color: #f7fafc;
+  padding: 56px 24px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  color: var(--color-ink-muted);
 }
 
 .noDataCard h3 {
-  margin: 0 0 8px 0;
-  color: #4a5568;
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  color: var(--color-ink);
   font-size: 1.1rem;
 }
 
 .noDataCard p {
-  margin: 0;
-  color: #718096;
-  font-size: 0.9rem;
-  max-width: 400px;
   margin: 0 auto;
-  line-height: 1.5;
+  max-width: 360px;
+  font-size: 0.92rem;
 }
 
-/* Loading Spinner Core Systems */
-.loaderWrapper {
+.resetSearchBtn {
+  margin-top: 16px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.resetSearchBtn:hover {
+  background: var(--color-bg-alt);
+}
+
+/* ------------------------------------------------------------------ */
+/* Skeleton loading state                                               */
+/* ------------------------------------------------------------------ */
+.skeletonCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.skeletonCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeletonLines {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 50vh;
-  gap: 16px;
-  color: #718096;
-  font-size: 0.95rem;
+  gap: 8px;
 }
 
-.spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid #edf2f7;
-  border-top-color: #1a202c;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+.skeletonLine {
+  height: 10px;
+  border-radius: 6px;
 }
 
-
-/* Container arrangement layout for title + badge */
-.titleInlineGroup {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+.skeletonLineWide {
+  width: 60%;
 }
 
-/* Subtle accent style to softly differentiate their own card backgrounds */
-.ownQuestionCard {
-  background-color: #fcfdfd !important;
-  border-left: 3px solid #1a202c !important; /* Elegant subtle dark left indicator accent edge line */
+.skeletonLineNarrow {
+  width: 30%;
 }
 
-/* Premium Visual Content Badge Rule */
-.userOwnerBadge {
-  background-color: #1a202c;
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 3px 8px;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  user-select: none;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-alt) 25%,
+    #eceef5 37%,
+    var(--color-bg-alt) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
 }
 
-/* Layout Responsiveness Design System */
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive breakpoints                                               */
+/* ------------------------------------------------------------------ */
 @media (max-width: 640px) {
+  .homeWrapper {
+    padding: 28px 16px 64px;
+  }
+
   .dashboardHeader {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: stretch;
+    gap: 16px;
   }
-  
+
+  .mainHeading {
+    font-size: 1.5rem;
+  }
+
   .askBtn {
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .filterRow {
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .filterPill {
+    white-space: nowrap;
+  }
+
+  .qTitle {
+    max-width: 140px;
+  }
+
+  .sectionLabel {
+    white-space: normal;
+  }
+
+  .questionCard {
+    padding: 14px;
+    align-items: flex-start;
+  }
+
+  .cardRightSection {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .statGroup {
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .questionCard,
+  .askBtn,
+  .arrowIconWrapper,
+  .searchContainer,
+  .filterPill,
+  .shimmer {
+    transition: none;
+    animation: none;
   }
 }
